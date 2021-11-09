@@ -8,7 +8,7 @@ class Comment extends Model {}
             primaryKey: true, 
             autoIncrement: true 
         },
-        comment_text{
+        comment_text: {
             type: DataTypes.STRING, 
             validate: {
                 len: [3]
@@ -30,11 +30,13 @@ class Comment extends Model {}
                 key: 'id'
             }
         }
-    }, {
+    },
+    {
         sequelize, 
         freezeTableName: true, 
         underscored: true, 
         modelName: 'comment'
-});
+    }
+);
 
 module.exports = Comment;
