@@ -44,15 +44,19 @@ WHEN I am idle on the site for more than a set time
 THEN I am able to view comments but I am prompted to log in again before I can add, update, or delete comments
 
 ## List of Technology
-
-
+MySQL2
+Express
+Sequelize
+Handlebars
+Dotenv
+Bycrypt
 ## Installation 
 Clone a copy from GitHub. 
-Open project directory, then npm install to install all dependencies
+Open project directory, then npm install to install all dependencies. Create a .env file in the root of the project with your own environment variables.
 
 ## Usage 
 
-
+Go to the site, signup or login, enter an article or read another article posted by another user.
 ## Contributions
 Tammy Gagliano 
 
