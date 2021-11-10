@@ -60,5 +60,7 @@ Go to the site, signup or login, enter an article or read another article posted
 ## Contributions
 Tammy Gagliano 
 https://github.com/TammyGagliano/tech-blog
+Heroku Deployment
+https://tg-tech-blog.herokuapp.com/
 ## ScreenShot
 ![Tech Blog](./techscreenshot.png)
