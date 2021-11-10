@@ -59,8 +59,6 @@ Open project directory, then npm install to install all dependencies. Create a .
 Go to the site, signup or login, enter an article or read another article posted by another user.
 ## Contributions
 Tammy Gagliano 
-
-https://tg-note-taker-app.herokuapp.com/
-
+https://github.com/TammyGagliano/tech-blog
 ## ScreenShot
 ![Tech Blog](./blogscreenshot.png)
