@@ -61,4 +61,4 @@ Go to the site, signup or login, enter an article or read another article posted
 Tammy Gagliano 
 https://github.com/TammyGagliano/tech-blog
 ## ScreenShot
-![Tech Blog](./blogscreenshot.png)
+![Tech Blog](./techscreenshot.png)
