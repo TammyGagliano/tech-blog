@@ -1,9 +1,8 @@
 const router = require('express').Router();
-const { Comment, User, Post } = require('../../models');
-
+const { User, Post, Comment } = require('../../models');
 router.get('/', (req, res) => {
     User.findAll({
-            attributes: { exclude: ['password'] }
+            attributes: { exclude: ['[password'] }
         })
         .then(dbUserData => res.json(dbUserData))
         .catch(err => {
@@ -20,8 +19,14 @@ router.get('/:id', (req, res) => {
             },
             include: [{
                     model: Post,
-                    attributes: [ 'id', 'title', 'content', 'created_at' ]
+                    attributes: [
+                        'id',
+                        'title',
+                        'content',
+                        'created_at'
+                    ]
                 },
+
                 {
                     model: Comment,
                     attributes: ['id', 'comment_text', 'created_at'],
@@ -49,12 +54,15 @@ router.get('/:id', (req, res) => {
         });
 });
 
+
 router.post('/', (req, res) => {
+
     User.create({
         username: req.body.username,
         email: req.body.email,
         password: req.body.password
     })
+
     .then(dbUserData => {
             req.session.save(() => {
                 req.session.user_id = dbUserData.id;

@@ -12,7 +12,7 @@ const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // Set up Handlebars.js engine with custom helpers
-const hbs = exphbs.create({ helpers });
+const hbs = exphbs.create({helpers});
 
 const sess  = {
     secret: 'Super secret secret', 
@@ -39,7 +39,7 @@ app.use(routes);
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}!`);
     sequelize.sync({ force: false });
-  });
+});
   
 
 
