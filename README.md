@@ -3,12 +3,12 @@
 ## Description: 
 Here we are building a CMS-style blog site similar to a Wordpress site, where developers can publish their blog posts and comment on other developers’ posts as well. You’ll build this site completely from scratch and deploy it to Heroku. Your app will follow the MVC paradigm in its architectural structure, using Handlebars.js as the templating language, Sequelize as the ORM, and the express-session npm package for authentication.
 
-## User Story
+### User Story
 AS A developer who writes about tech
 I WANT a CMS-style blog site
 SO THAT I can publish articles, blog posts, and my thoughts and opinions
 
-## Acceptance Criteria
+### Acceptance Criteria
 GIVEN a CMS-style blog site
 WHEN I visit the site for the first time
 THEN I am presented with the homepage, which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard; and the option to log in
@@ -43,7 +43,7 @@ THEN I am signed out of the site
 WHEN I am idle on the site for more than a set time
 THEN I am able to view comments but I am prompted to log in again before I can add, update, or delete comments
 
-## List of Technology
+### List of Technology
 MySQL2
 Express
 Sequelize
@@ -57,7 +57,7 @@ Open project directory, then npm install to install all dependencies. Create a .
 ## Usage 
 
 Go to the site, signup or login, enter an article or read another article posted by another user.
-## Contributions
+### Contributions
 Tammy Gagliano 
 https://github.com/TammyGagliano/tech-blog
 Heroku Deployment
