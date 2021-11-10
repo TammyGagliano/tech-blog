@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const { Comment, User, Post } = require('../../models');
-const sequelize = require('../../config/connection');
-const withAuth = require ('../../utils/auth');
+const { Comment, User, Post } = require('../models');
+const sequelize = require('../config/connection');
+const withAuth = require ('../utils/auth');
 
 router.get('/', withAuth, (req, res) => {
     Post.findAll({
@@ -15,7 +15,7 @@ router.get('/', withAuth, (req, res) => {
         },
         {
             model: Comment, 
-            attributes: ['id', 'comment_text', 'post_id', 'user_id' 'created_at'],
+            attributes: ['id', 'comment_text', 'post_id', 'user_id'],
             include: {
                 model: User, 
                 attributes: ['username']
@@ -45,7 +45,7 @@ router.get('/edit/:id', (req, res) => {
         }, 
         {
             model: Comment, 
-            attributes: ['id', 'comment_text', 'post_id', 'user_id' 'created_at'],
+            attributes: ['id', 'comment_text', 'post_id', 'user_id'],
             include: {
                 model: User, 
                 attributes: ['username']
