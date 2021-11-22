@@ -57,7 +57,7 @@ Open project directory, then npm install to install all dependencies. Create a .
 ## Usage 
 
 Go to the site, signup or login, enter an article or read another article posted by another user.
-### Contributions
+## Contributions
 Tammy Gagliano 
 https://github.com/TammyGagliano/tech-blog
 Heroku Deployment
