@@ -8,8 +8,9 @@ router.post('/', withAuth, async (req, res) => {
     const body = req.body;
     try {
         const dbPostData = await Post.create({
-            title: req.body.title,
-            content: req.body.content,
+            ...body,
+            // title: req.body.title,
+            // content: req.body.content,
             user_id: req.session.user_id
         });
         res.json(dbPostData);
@@ -30,7 +31,7 @@ router.put('/:id', withAuth, async (req, res) => {
         if (affectedRows > 0) {
             res.status(200).end();
         } else {
-            res.status(400).end();
+            res.status(404).end();
         }} catch (err) {
             console.log(err);
             res.status(500).json(err);

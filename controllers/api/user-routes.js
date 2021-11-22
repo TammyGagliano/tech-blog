@@ -3,9 +3,8 @@ const { User, Post, Comment } = require('../../models');
 
 router.post('/', async (req, res) => {
     try {
-    const newUser = await User.create({
+    const dbUserData = await User.create({
         username: req.body.username,
-        email: req.body.email,
         password: req.body.password
     });
 
@@ -24,17 +23,17 @@ router.post('/', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-    const user = await User.findOne({
+    const userData = await User.findOne({
             where: {
-                username: req.body.username
+                username: req.body.username,
             },
         });
         
-        if (!dbUserData) {
+        if (!userData) {
                 res.status(400).json({ message: 'No user with that username!' });
                 return;
             }
-            const validPassword = dbUserData.checkPassword(req.body.password);
+            const validPassword = userData.checkPassword(req.body.password);
 
             if (!validPassword) {
                 res.status(400).json({ message: 'Incorrect password!' });
@@ -42,11 +41,11 @@ router.post('/login', async (req, res) => {
             }
             req.session.save(() => {
 
-                req.session.user_id = dbUserData.id;
-                req.session.username = dbUserData.username;
+                req.session.user_id = userData.id;
+                req.session.username = userData.username;
                 req.session.loggedIn = true;
 
-                res.json({ user: dbUserData, message: 'You are now logged in!' });
+                res.json({ userData, message: 'You are now logged in!' });
             });
         } catch(err) {
             console.log(err);
