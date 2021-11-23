@@ -1,67 +1,69 @@
 const router = require('express').Router();
-const { User, Post, Comment } = require('../../models');
+const { User } = require('../../models');
 
 router.post('/', async (req, res) => {
-    try {
-    const dbUserData = await User.create({
-        username: req.body.username,
-        password: req.body.password
+  try {
+    const newUser = await User.create({
+      username: req.body.username,
+      password: req.body.password,
     });
 
     req.session.save(() => {
-        req.session.user_id = dbUserData.id;
-        req.session.username = dbUserData.username;
-        req.session.loggedIn = true;
+      req.session.userId = newUser.id;
+      req.session.username = newUser.username;
+      req.session.loggedIn = true;
 
-        res.json(dbUserData);
+      res.json(newUser);
     });
-    } catch(err) {
-            console.log(err);
-            res.status(500).json(err);
-        };
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.post('/login', async (req, res) => {
-    try {
-    const userData = await User.findOne({
-            where: {
-                username: req.body.username,
-            },
-        });
-        
-        if (!userData) {
-                res.status(400).json({ message: 'No user with that username!' });
-                return;
-            }
-            const validPassword = userData.checkPassword(req.body.password);
+  try {
+    const user = await User.findOne({
+      where: {
+        username: req.body.username,
+      },
+    });
 
-            if (!validPassword) {
-                res.status(400).json({ message: 'Incorrect password!' });
-                return;
-            }
-            req.session.save(() => {
+    if (!user) {
+      res.status(400).json({ message: 'No user account found!' });
+      return;
+    }
 
-                req.session.user_id = userData.id;
-                req.session.username = userData.username;
-                req.session.loggedIn = true;
+    const validPassword = user.checkPassword(req.body.password);
 
-                res.json({ userData, message: 'You are now logged in!' });
-            });
-        } catch(err) {
-            console.log(err);
-            res.status(400).json({ message: 'No user account found!' });
-        };
+    if (!validPassword) {
+      res.status(400).json({ message: 'No user account found!' });
+      return;
+    }
+
+    req.session.save(() => {
+      req.session.userId = user.id;
+      req.session.username = user.username;
+      req.session.loggedIn = true;
+
+      res.json({ user, message: 'You are now logged in!' });
+    });
+  } catch (err) {
+    res.status(400).json({ message: 'No user account found!' });
+  }
 });
 
 router.post('/logout', (req, res) => {
-    if (req.session.loggedIn) {
-        req.session.destroy(() => {
-            res.status(204).end();
-        });
-    } else {
-        res.status(404).end();
-    }
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
 });
+
+module.exports = router;
+
 
 // router.get('/', (req, res) => {
 //     User.findAll({
@@ -156,5 +158,3 @@ router.post('/logout', (req, res) => {
 //             res.status(500).json(err);
 //         });
 // });
-
-module.exports = router;

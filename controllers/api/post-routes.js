@@ -1,62 +1,56 @@
-const router = require('express').Router();
-const { Post, User, Comment } = require('../../models');
 // const sequelize = require('../../config/connection');
+const router = require('express').Router();
+const { Post } = require('../../models/');
 const withAuth = require('../../utils/auth');
 
-
 router.post('/', withAuth, async (req, res) => {
-    const body = req.body;
-    try {
-        const dbPostData = await Post.create({
-            ...body,
-            // title: req.body.title,
-            // content: req.body.content,
-            user_id: req.session.user_id
-        });
-        res.json(dbPostData);
-            } catch(err) {
-            console.log(err);
-            res.status(500).json(err);
-        };
+  const body = req.body;
+
+  try {
+    const newPost = await Post.create({ ...body, userId: req.session.userId });
+    res.json(newPost);
+  } catch (err) {
+    res.status(500).json(err);
+  };
 });
 
 router.put('/:id', withAuth, async (req, res) => {
-    try {
-        const [affectedRows] = await Post.update(req.body, {
-            where: {
-                id: req.params.id,
-            },
-        });
-        
-        if (affectedRows > 0) {
-            res.status(200).end();
-        } else {
-            res.status(404).end();
-        }} catch (err) {
-            console.log(err);
-            res.status(500).json(err);
-        };
-});
+  try {
+    const [affectedRows] = await Post.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
 
+    if (affectedRows > 0) {
+      res.status(200).end();
+    } else {
+      res.status(404).end();
+    }} catch (err) {
+    res.status(500).json(err);
+  };
+});
 
 router.delete('/:id', withAuth, async (req, res) => {
-    try {
+  try {
     const [affectedRows] = Post.destroy({
-        where: {
-            id: req.params.id,
-        },
+      where: {
+        id: req.params.id,
+      },
     });
-    
+
     if (affectedRows > 0) {
-            res.status(200).end();
-        } else {
-            res.status(404).end();
+      res.status(200).end();
+    } else {
+      res.status(404).end();
     }
-    } catch(err) {
-        console.log(err);
-        res.status(500).json(err);
-    }
+  } catch (err) {
+    res.status(500).json(err);
+  };
 });
+
+module.exports = router;
+
 
 // router.get('/', (req, res) => {
 //     console.log('======================');
@@ -127,5 +121,3 @@ router.delete('/:id', withAuth, async (req, res) => {
 //         });
 // });
 
-
-module.exports = router;
